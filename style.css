@@ -1,8 +1,9 @@
 :root {
-  --primary: #b399d4; /* Светло-сиреневый */
-  --secondary: #d4b3ff; /* Пастельный фиолетовый */
-  --light: #f9f5ff; /* Очень светлый фиолетовый */
-  --dark: #4a3a60; /* Тёмно-сиреневый */
+  --primary: #b399d4;
+  --secondary: #d4b3ff;
+  --light: #f9f5ff;
+  --dark: #4a3a60;
+  --error: #ff6b6b;
   --shadow: 0 4px 6px rgba(0,0,0,0.1);
   
   --bg-color: #f9f5ff;
@@ -41,10 +42,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-h1 i {
-  margin-right: 10px;
-}
-
 .tabs {
   display: flex;
   justify-content: center;
@@ -68,10 +65,6 @@ h1 i {
   color: white;
 }
 
-.tab-btn i {
-  margin-right: 8px;
-}
-
 .card {
   background: var(--card-bg);
   border-radius: 12px;
@@ -88,19 +81,6 @@ h1 i {
   box-sizing: border-box;
 }
 
-.input-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: var(--primary);
-  font-size: 0.9rem;
-}
-
-.input-group label i {
-  margin-right: 8px;
-  width: 20px;
-}
-
 input, select {
   width: 100%;
   padding: 10px;
@@ -110,37 +90,24 @@ input, select {
   background-color: var(--input-bg);
   color: var(--text-color);
   box-sizing: border-box;
-  max-width: 100%;
-}
-
-input:focus, select:focus {
-  border-color: var(--primary);
-  outline: none;
 }
 
 .radio-group {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 20px 0;
-  flex-wrap: wrap;
   gap: 10px;
 }
 
-.radio-group label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
 .radio-btn {
-  padding: 10px;
+  padding: 10px 5px;
   border: 2px solid var(--border-color);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 80px;
+  flex: 1;
+  min-width: 0;
   box-sizing: border-box;
 }
 
@@ -149,10 +116,13 @@ input:focus, select:focus {
   font-size: 1.2rem;
 }
 
-.radio-group input:checked + .radio-btn {
-  border-color: var(--primary);
-  background-color: var(--primary);
-  color: white;
+.radio-btn span {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: center;
 }
 
 .primary-btn {
@@ -168,55 +138,25 @@ input:focus, select:focus {
   margin-top: 10px;
 }
 
-.primary-btn:hover {
-  background: #9f86c7;
+.error-message {
+  color: var(--error);
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  min-height: 20px;
 }
 
-.primary-btn i {
-  margin-right: 8px;
-}
-
-.tab-content {
-  display: none;
-  animation: fadeIn 0.3s ease;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Стили для графиков */
-canvas {
-  width: 100% !important;
-  height: auto !important;
-}
-
-/* Специальные стили для iPhone */
 @supports (-webkit-touch-callout: none) {
   .container {
     padding: 10px;
   }
   
-  .card {
-    padding: 12px;
-  }
-  
-  input, select {
-    padding: 12px 10px;
-  }
-  
   .radio-group {
-    flex-direction: row;
-    justify-content: space-between;
+    padding: 0 5px;
   }
   
   .radio-btn {
-    min-width: 45%;
     padding: 12px 5px;
+  flex: 1 1 45%;
   }
 }
