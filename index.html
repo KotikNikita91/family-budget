@@ -13,6 +13,10 @@
   <div class="container">
     <header>
       <h1><i class="fas fa-wallet"></i> Семейный бюджет</h1>
+      <button class="theme-switcher" id="themeSwitcher">
+        <i class="fas fa-moon"></i>
+      </button>
+      
       <div class="tabs">
         <button class="tab-btn active" data-tab="add"><i class="fas fa-plus-circle"></i> Добавить</button>
         <button class="tab-btn" data-tab="stats"><i class="fas fa-chart-pie"></i> Статистика</button>
@@ -24,18 +28,42 @@
         <div class="card">
           <div class="input-group">
             <label for="amount"><i class="fas fa-ruble-sign"></i> Сумма</label>
-            <input type="number" id="amount" placeholder="0">
+            <input type="number" id="amount" placeholder="0" min="0" step="1">
           </div>
           
           <div class="input-group">
             <label for="category"><i class="fas fa-tags"></i> Категория</label>
             <select id="category">
-              <option value="Продукты">Продукты</option>
-              <option value="Кафе">Кафе</option>
-              <option value="Транспорт">Транспорт</option>
-              <option value="Развлечения">Развлечения</option>
-              <option value="Здоровье">Здоровье</option>
-              <option value="Другое">Другое</option>
+              <option value="Продукты">
+                <span class="select-icon-option">
+                  <i class="fas fa-shopping-basket"></i> Продукты
+                </span>
+              </option>
+              <option value="Кафе">
+                <span class="select-icon-option">
+                  <i class="fas fa-utensils"></i> Кафе
+                </span>
+              </option>
+              <option value="Транспорт">
+                <span class="select-icon-option">
+                  <i class="fas fa-bus"></i> Транспорт
+                </span>
+              </option>
+              <option value="Развлечения">
+                <span class="select-icon-option">
+                  <i class="fas fa-gamepad"></i> Развлечения
+                </span>
+              </option>
+              <option value="Здоровье">
+                <span class="select-icon-option">
+                  <i class="fas fa-heartbeat"></i> Здоровье
+                </span>
+              </option>
+              <option value="Другое">
+                <span class="select-icon-option">
+                  <i class="fas fa-ellipsis-h"></i> Другое
+                </span>
+              </option>
             </select>
           </div>
           
