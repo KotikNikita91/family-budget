@@ -160,3 +160,33 @@ input, select {
   flex: 1 1 45%;
   }
 }
+
+/* Добавьте это в конец файла */
+
+/* Фикс для иконок Никита/Лера */
+.radio-btn {
+  padding: 10px 5px !important;
+  min-width: 100px !important;
+  width: auto !important;
+  flex: none !important;
+}
+
+.radio-btn i {
+  font-size: 1.5rem !important;
+  margin-bottom: 8px !important;
+}
+
+.radio-btn span {
+  font-size: 0.9rem !important;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .radio-btn {
+    min-width: 120px !important;
+    padding: 12px 5px !important;
+  }
+  
+  .radio-btn i {
+    font-size: 1.8rem !important;
+  }
+}
