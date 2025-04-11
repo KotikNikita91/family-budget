@@ -5,13 +5,33 @@
   --light: #f8f9fa;
   --dark: #343a40;
   --shadow: 0 4px 6px rgba(0,0,0,0.1);
+  
+  /* Цвета для светлой темы */
+  --bg-color: #f5f6fa;
+  --text-color: #343a40;
+  --card-bg: white;
+  --input-bg: white;
+  --border-color: #e0e0e0;
+  
+  /* Анимации */
+  --transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1a1a2e;
+  --text-color: #f8f9fa;
+  --card-bg: #16213e;
+  --input-bg: #0f3460;
+  --border-color: #2d4059;
+  --shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f5f6fa;
-  color: var(--dark);
+  background-color: var(--bg-color);
+  color: var(--text-color);
   line-height: 1.6;
+  transition: var(--transition);
 }
 
 .container {
@@ -23,15 +43,35 @@ body {
 header {
   text-align: center;
   margin-bottom: 30px;
+  position: relative;
 }
 
 h1 {
   color: var(--primary);
   font-weight: 600;
+  transition: var(--transition);
 }
 
 h1 i {
   margin-right: 10px;
+}
+
+/* Кнопка переключения темы */
+.theme-switcher {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .tabs {
@@ -48,7 +88,8 @@ h1 i {
   cursor: pointer;
   font-weight: 500;
   border-radius: 8px;
-  transition: all 0.3s;
+  transition: var(--transition);
+  color: var(--text-color);
 }
 
 .tab-btn.active {
@@ -61,11 +102,12 @@ h1 i {
 }
 
 .card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 25px;
   margin-bottom: 20px;
   box-shadow: var(--shadow);
+  transition: var(--transition);
 }
 
 .input-group {
@@ -77,6 +119,7 @@ h1 i {
   margin-bottom: 8px;
   font-weight: 500;
   color: var(--primary);
+  transition: var(--transition);
 }
 
 .input-group label i {
@@ -87,15 +130,30 @@ h1 i {
 input, select {
   width: 100%;
   padding: 12px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px;
-  transition: border 0.3s;
+  transition: var(--transition);
+  background-color: var(--input-bg);
+  color: var(--text-color);
 }
 
 input:focus, select:focus {
   border-color: var(--primary);
   outline: none;
+}
+
+/* Стили для опций в select с иконками */
+.select-icon-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.select-icon-option i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
 }
 
 .radio-group {
@@ -112,14 +170,16 @@ input:focus, select:focus {
 
 .radio-btn {
   padding: 10px 15px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  transition: all 0.3s;
+  transition: var(--transition);
+  color: var(--text-color);
 }
 
 .radio-group input:checked + .radio-btn {
   border-color: var(--primary);
-  background-color: #f0f0ff;
+  background-color: var(--primary);
+  color: white;
 }
 
 .primary-btn {
@@ -132,15 +192,31 @@ input:focus, select:focus {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: var(--transition);
 }
 
 .primary-btn:hover {
   background: #5649d1;
+  transform: translateY(-2px);
 }
 
 .primary-btn i {
   margin-right: 8px;
+}
+
+/* Анимации для вкладок */
+.tab-content {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Адаптивность */
