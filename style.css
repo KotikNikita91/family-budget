@@ -1,28 +1,25 @@
 :root {
-  --primary: #6c5ce7;
-  --secondary: #a29bfe;
-  --success: #00b894;
-  --light: #f8f9fa;
-  --dark: #343a40;
+  --primary: #b399d4; /* Светло-сиреневый */
+  --secondary: #d4b3ff; /* Пастельный фиолетовый */
+  --success: #c7a8e8; /* Светло-лавандовый */
+  --light: #f9f5ff; /* Очень светлый фиолетовый */
+  --dark: #4a3a60; /* Тёмно-сиреневый */
   --shadow: 0 4px 6px rgba(0,0,0,0.1);
   
   /* Цвета для светлой темы */
-  --bg-color: #f5f6fa;
-  --text-color: #343a40;
-  --card-bg: white;
-  --input-bg: white;
-  --border-color: #e0e0e0;
-  
-  /* Анимации */
-  --transition: all 0.3s ease;
+  --bg-color: #f9f5ff;
+  --text-color: #4a3a60;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --border-color: #e0d0ff;
 }
 
 [data-theme="dark"] {
-  --bg-color: #1a1a2e;
-  --text-color: #f8f9fa;
-  --card-bg: #16213e;
-  --input-bg: #0f3460;
-  --border-color: #2d4059;
+  --bg-color: #2a1b3d; /* Тёмно-фиолетовый */
+  --text-color: #e0d0ff;
+  --card-bg: #3d2a4d;
+  --input-bg: #4a3a60;
+  --border-color: #6a5a7a;
   --shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
@@ -227,5 +224,52 @@ input:focus, select:focus {
   
   .card {
     padding: 15px;
+  }
+}
+
+/* Специальные стили для iPhone */
+@supports (-webkit-touch-callout: none) {
+  .container {
+    padding: 15px;
+    max-width: 95%;
+  }
+  
+  .theme-switcher {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 100;
+  }
+  
+  .card {
+    padding: 15px;
+  }
+  
+  input, select {
+    font-size: 16px; /* Фикс для увеличения текста в iOS */
+    padding: 12px 10px;
+  }
+  
+  .radio-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .radio-btn {
+    padding: 12px;
+  }
+  
+  /* Фикс для иконок в select */
+  select option {
+    padding: 10px !important;
+  }
+  
+  .select-icon-option {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .select-icon-option i {
+    margin-right: 8px;
   }
 }
