@@ -1,6 +1,6 @@
 // Конфигурация
 const CONFIG = {
-  SHEET_URL: "ВАШ_GOOGLE_SCRIPT_URL",
+  SHEET_URL: "https://script.google.com/macros/s/AKfycbxPPXS72nG6I2rC3Zt2qR0edupwRXAKmEByu9N7lII3OVn28WfjfZFGGzTd_KdIBEgj5A/exec",
   CATEGORIES: [
     { name: "Продукты", icon: "shopping-basket" },
     { name: "Кафе", icon: "utensils" },
