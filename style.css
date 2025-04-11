@@ -1,10 +1,8 @@
 :root {
-  --primary: #b399d4;
-  --secondary: #d4b3ff;
-  --success: #c7a8e8;
-  --light: #f9f5ff;
-  --dark: #4a3a60;
-  --shadow: 0 4px 6px rgba(0,0,0,0.1);
+  --primary: #b399d4; /* Светло-сиреневый */
+  --secondary: #d4b3ff; /* Пастельный фиолетовый */
+  --light: #f9f5ff; /* Очень светлый фиолетовый */
+  --dark: #4a3a60; /* Тёмно-сиреневый */
   
   --bg-color: #f9f5ff;
   --text-color: #4a3a60;
