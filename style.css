@@ -88,16 +88,30 @@ h1 {
     padding: 12px 10px;
   }
   
-  .radio-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .radio-btn {
-    padding: 12px;
-  }
-  
-  select option {
-    padding: 10px !important;
-  }
+ .radio-group {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+  justify-content: center; /* Центрируем кнопки */
+}
+
+.radio-group label {
+  display: flex;
+  flex-direction: column; /* Иконка сверху, текст снизу */
+  align-items: center;
+  cursor: pointer;
+}
+
+.radio-btn {
+  padding: 10px 15px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.radio-btn i {
+  margin-bottom: 5px; /* Отступ между иконкой и текстом */
 }
