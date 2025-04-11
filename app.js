@@ -1,6 +1,6 @@
 // Конфигурация
 const CONFIG = {
-  SHEET_URL: "ВАШ_GOOGLE_SCRIPT_URL", // Вставьте сюда URL из Apps Script
+  SHEET_URL: "https://script.google.com/macros/s/AKfycbxPPXS72nG6I2rC3Zt2qR0edupwRXAKmEByu9N7lII3OVn28WfjfZFGGzTd_KdIBEgj5A/exec", // Вставьте сюда URL из Apps Script
   CATEGORIES: [
     "Продукты", "Кафе", "Транспорт", 
     "Развлечения", "Здоровье", "Другое"
