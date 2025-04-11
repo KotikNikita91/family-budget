@@ -13,7 +13,6 @@
   <div class="container">
     <header>
       <h1><i class="fas fa-wallet"></i> Семейный бюджет</h1>
-    
       
       <div class="tabs">
         <button class="tab-btn active" data-tab="add"><i class="fas fa-plus-circle"></i> Добавить</button>
@@ -31,14 +30,14 @@
           
           <div class="input-group">
             <label for="category"><i class="fas fa-tags"></i> Категория</label>
-           <select id="category">
-  <option value="Продукты">🛒 Продукты</option>
-  <option value="Кафе">🍽️ Кафе</option>
-  <option value="Транспорт">🚌 Транспорт</option>
-  <option value="Развлечения">🎮 Развлечения</option>
-  <option value="Здоровье">💊 Здоровье</option>
-  <option value="Другое">⋯ Другое</option>
-</select>
+            <select id="category">
+              <option value="Продукты">🛒 Продукты</option>
+              <option value="Кафе">🍽️ Кафе</option>
+              <option value="Транспорт">🚌 Транспорт</option>
+              <option value="Развлечения">🎮 Развлечения</option>
+              <option value="Здоровье">💊 Здоровье</option>
+              <option value="Другое">⋯ Другое</option>
+            </select>
           </div>
           
           <div class="input-group">
@@ -46,16 +45,22 @@
             <input type="text" id="comment" placeholder="Где потратили...">
           </div>
           
-         <div class="radio-group">
-  <label>
-    <input type="radio" name="author" value="Никита" checked>
-    <span class="radio-btn"><i class="fas fa-male"></i> Никита</span>
-  </label>
-  <label>
-    <input type="radio" name="author" value="Лера">
-    <span class="radio-btn"><i class="fas fa-female"></i> Лера</span>
-  </label>
-</div>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="author" value="Никита" checked>
+              <span class="radio-btn">
+                <i class="fas fa-male"></i>
+                <span>Никита</span>
+              </span>
+            </label>
+            <label>
+              <input type="radio" name="author" value="Лера">
+              <span class="radio-btn">
+                <i class="fas fa-female"></i>
+                <span>Лера</span>
+              </span>
+            </label>
+          </div>
           
           <button id="add-btn" class="primary-btn">
             <i class="fas fa-save"></i> Сохранить
