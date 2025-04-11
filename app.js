@@ -1,5 +1,5 @@
 const CONFIG = {
-  SHEET_URL: "https://script.google.com/macros/s/AKfycbxPPXS72nG6I2rC3Zt2qR0edupwRXAKmEByu9N7lII3OVn28WfjfZFGGzTd_KdIBEgj5A/exec",
+  SHEET_URL: "https://script.google.com/macros/s/AKfycbwQx9QqJQmZ9x8Qx9QqJQmZ9x8Qx9QqJQmZ9x8Qx9QqJQmZ9x8Qx9QqJQmZ9x8Qx9QqJQmZ9x8Qx9QqJQmZ9x8Qx9Q/exec",
   CATEGORIES: ["Продукты", "Кафе", "Транспорт", "Развлечения", "Здоровье", "Другое"],
   COLORS: ['#b399d4', '#d4b3ff', '#c7a8e8', '#e0d0ff', '#a18bbc', '#9f86c7']
 };
@@ -11,17 +11,31 @@ const elements = {
   addBtn: document.getElementById('add-btn'),
   errorMsg: document.getElementById('error-message'),
   tabContents: document.querySelectorAll('.tab-content'),
-  tabBtns: document.querySelectorAll('.tab-btn')
+  tabBtns: document.querySelectorAll('.tab-btn'),
+  monthlyChart: null,
+  categoryChart: null
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  initApp();
+});
+
+async function initApp() {
+  // Инициализация событий
   elements.tabBtns.forEach(btn => {
     btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab')));
   });
 
   elements.addBtn.addEventListener('click', addExpense);
-  loadData();
-});
+  
+  // Загрузка данных
+  try {
+    await loadData();
+  } catch (error) {
+    console.error("Ошибка загрузки данных:", error);
+    showError("Не удалось загрузить данные. Пожалуйста, обновите страницу.");
+  }
+}
 
 async function addExpense() {
   elements.errorMsg.textContent = '';
@@ -43,17 +57,18 @@ async function addExpense() {
     const response = await fetch(CONFIG.SHEET_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'text/plain;charset=utf-8'
       },
       body: JSON.stringify(expense)
     });
 
-    const result = await response.text();
-    if (!response.ok) throw new Error(result || 'Unknown error');
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
 
     elements.amount.value = '';
     elements.comment.value = '';
-    loadData();
+    await loadData();
   } catch (error) {
     console.error('Error:', error);
     showError("Ошибка сохранения. Проверьте интернет и попробуйте снова.");
@@ -69,32 +84,59 @@ async function loadData() {
   try {
     const response = await fetch(CONFIG.SHEET_URL);
     if (!response.ok) throw new Error('Load failed');
-    window.expenseData = await response.json();
+    
+    const data = await response.json();
+    if (!Array.isArray(data)) throw new Error('Invalid data format');
+    
+    window.expenseData = data;
     updateCharts();
   } catch (error) {
     console.error("Load error:", error);
+    throw error;
   }
 }
 
 function updateCharts() {
-  if (!window.expenseData?.length) return;
+  if (!window.expenseData?.length) {
+    console.warn("No data available for charts");
+    return;
+  }
   
-  const monthlyData = analyzeMonthlyData();
-  const categoryData = analyzeCategoryData();
-  
-  updateChart('monthlyChart', 'bar', monthlyData, CONFIG.COLORS[0]);
-  updateChart('categoryChart', 'doughnut', categoryData, CONFIG.COLORS);
+  try {
+    // Обновляем график по месяцам
+    updateChart(
+      'monthlyChart', 
+      'bar', 
+      analyzeMonthlyData(), 
+      CONFIG.COLORS[0]
+    );
+    
+    // Обновляем график по категориям
+    updateChart(
+      'categoryChart', 
+      'doughnut', 
+      analyzeCategoryData(), 
+      CONFIG.COLORS
+    );
+  } catch (error) {
+    console.error("Chart update error:", error);
+  }
 }
 
-function updateChart(id, type, data, colors) {
-  const ctx = document.getElementById(id).getContext('2d');
-  if (window[id]) window[id].destroy();
+function updateChart(canvasId, type, data, colors) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
   
-  window[id] = new Chart(ctx, {
+  // Удаляем предыдущий график если существует
+  if (elements[canvasId]) {
+    elements[canvasId].destroy();
+  }
+  
+  elements[canvasId] = new Chart(ctx, {
     type: type,
     data: {
       labels: data.labels,
       datasets: [{
+        label: canvasId === 'monthlyChart' ? 'Расходы по месяцам' : '',
         data: data.amounts,
         backgroundColor: Array.isArray(colors) ? colors : [colors],
         borderWidth: 0
@@ -102,10 +144,15 @@ function updateChart(id, type, data, colors) {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: true,
       plugins: {
         legend: { 
           position: 'right',
-          labels: { font: { size: 14 } }
+          labels: {
+            font: {
+              size: 14
+            }
+          }
         }
       }
     }
@@ -114,21 +161,29 @@ function updateChart(id, type, data, colors) {
 
 function analyzeMonthlyData() {
   const months = {};
+  
   window.expenseData.forEach(expense => {
+    if (!expense.date || !expense.amount) return;
+    
     const date = new Date(expense.date);
     const monthYear = `${date.getMonth()+1}/${date.getFullYear()}`;
     months[monthYear] = (months[monthYear] || 0) + parseFloat(expense.amount);
   });
   
   return {
-    labels: Object.keys(months).map(m => m.replace('/', '.')),
+    labels: Object.keys(months).map(m => {
+      const [month, year] = m.split('/');
+      return `${month.padStart(2, '0')}.${year}`;
+    }),
     amounts: Object.values(months)
   };
 }
 
 function analyzeCategoryData() {
   const categories = {};
+  
   window.expenseData.forEach(expense => {
+    if (!expense.category || !expense.amount) return;
     categories[expense.category] = (categories[expense.category] || 0) + parseFloat(expense.amount);
   });
   
@@ -139,7 +194,15 @@ function analyzeCategoryData() {
 }
 
 function switchTab(tabId) {
-  elements.tabContents.forEach(c => c.classList.toggle('active', c.id === tabId));
-  elements.tabBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-tab') === tabId));
-  if (tabId === 'stats') updateCharts();
+  elements.tabContents.forEach(c => {
+    c.classList.toggle('active', c.id === tabId);
+  });
+  
+  elements.tabBtns.forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-tab') === tabId);
+  });
+  
+  if (tabId === 'stats') {
+    updateCharts();
+  }
 }
